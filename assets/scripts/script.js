@@ -9,22 +9,17 @@ function validateDataWithServer () {
         data = {email: userEmail, password: userPassword};
         
         var requestPostUser = axios.post("https://mock-api.bootcamp.respondeai.com.br/api/v1/buzzquizz/users",data);
-        requestPostUser.then(teste);
+        requestPostUser.then(enterUserAccount);
         requestPostUser.catch(RegisterUserError);
     }
 }
-
-
-function teste (response) {
+function enterUserAccount (response) {
     token = response.data["token"];
-    console.log(token);
+    changeScreen();
 }
-
 function RegisterUserError() {
-    console.log("deu ruim");
+    alert("Senha ou email inválido. Favor tentar novamente.");
 }
-
-
 function checkIfFIeldsAreBlanck () {
 
     var inputLogin = document.querySelector(".email");
@@ -42,4 +37,11 @@ function checkIfFIeldsAreBlanck () {
     userPassword = inputPassword.value;
     return true;
       
+}
+
+function changeScreen() {
+    var loginScreen = document.querySelector(".login");
+    loginScreen.style.display = "none";
+    
+
 }
