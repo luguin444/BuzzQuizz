@@ -1,0 +1,62 @@
+body {
+    font-family: 'Roboto', sans-serif;
+    /* font-family: 'Merriweather', serif; */
+}
+
+.theme {
+    background: #6c8fb8;
+}
+
+/*---------------LOGIN SCREEN---------------*/
+
+.login {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    
+}
+
+.login h1 {
+    text-align: center;
+    font-weight: bold;
+    margin-top: 75px;
+    font-size: 50px;
+}
+
+.login h2 {
+    text-align: center;
+    font-size: 30px;
+    color: gray;
+    margin-top: 8px;
+}
+
+.login .container {
+    width: 280px;
+    height: 180px;
+    margin-top: 35px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+    padding: 13px;
+}
+
+.login .container input {
+    background: #fff;
+    height: 40px;
+    width: 100%;
+    border: 0;
+    font-size: 18px;
+}
+
+.login .container button {
+    background-color: #39385a;
+    width: 110px;
+    height: 35px;
+    color: #fff;
+    font-size: 18px;
+    border: 0;
+    margin-top: 5px;
+}
+
+/*---------------LOGIN SCREEN---------------*/
