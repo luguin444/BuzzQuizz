@@ -1,10 +1,13 @@
 var userEmail;    //luguin
 var userPassword; //8998
 var token;
+var headerObject = {};
 
 function validateDataWithServer () {
     
     if (checkIfFIeldsAreBlanck ()) {
+
+        disableButtonLogin();
 
         data = {email: userEmail, password: userPassword};
         
@@ -16,10 +19,14 @@ function validateDataWithServer () {
 function enterUserAccount (response) {
     token = response.data["token"];
     changeScreen();
+    loadUserQuizzes ()
 }
 function RegisterUserError() {
     alert("Senha ou email inválido. Favor tentar novamente.");
+    enableButtonLogin();
 }
+
+
 function checkIfFIeldsAreBlanck () {
 
     var inputLogin = document.querySelector(".email");
@@ -39,9 +46,24 @@ function checkIfFIeldsAreBlanck () {
       
 }
 
+
+function disableButtonLogin() {
+    var button = document.querySelector(".login .container button");
+    button.disabled = true;
+}
+function enableButtonLogin() {
+
+    var button = document.querySelector(".login .container button");
+    button.disabled = false;
+}
+
+
 function changeScreen() {
     var loginScreen = document.querySelector(".login");
     loginScreen.style.display = "none";
-    
 
+    var myQuizzesScreen = document.querySelector(".user-quizzes");
+    myQuizzesScreen.style.display = "initial"
 }
+
+
