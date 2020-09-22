@@ -47,6 +47,7 @@ body {
     width: 100%;
     border: 0;
     font-size: 17px;
+    padding: 15px;
 }
 
 .login .container button {
