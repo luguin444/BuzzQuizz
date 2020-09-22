@@ -1,0 +1,121 @@
+
+/*---------------USER NEW QUIZZES SCREEN---------------*/
+
+.new-quizzes .building-quizz {
+    width: 700px;
+    margin: 40px auto;
+    display: flex;
+    flex-direction: column; 
+    justify-content: center;
+}
+
+.building-quizz .title-quizz {
+    height: 43px;
+    width: 100%;
+    padding: 10px;
+    font-size: 17px;
+    border-radius: 10px;
+    border: 1px solid #eee;
+    margin-bottom: 20px;
+    box-shadow: 0 0 2px 2px rgba(200,200,200,0.3);
+}
+
+.building-quizz .new-question-container,
+.building-quizz .new-level-container {
+    width: 100%;
+    height: 265px;
+    background-color: #e3effe;
+    border-radius: 10px;
+    padding: 17px 10px;
+    margin-bottom: 20px;
+}
+
+.building-quizz h2 {
+    font-size: 20px;
+    margin-bottom: 15px;
+}
+
+.new-question-container .new-question {
+    width: 10%;
+    height: 37px;
+    width: 100%;
+    padding: 10px;
+    font-size: 17px;
+    border-radius: 10px;
+    border: 1px solid #eee;
+    margin-bottom: 5px;
+}
+
+.container-answers, 
+.container-percentage {
+    width: 100%;
+    display: flex;
+}
+
+
+.container-answers input,
+.container-percentage .low, 
+.container-percentage .high {
+    width: 99%;
+    border: 0;
+    height: 33px;
+    margin: 3px 14px 3px 0;
+    border-radius: 10px;
+    padding-left: 7px;
+    font-size: 14px;
+    background-color: #f9d8d9;
+}
+
+.container-answers .answers,
+.container-answers .images-links,
+.container-percentage .low, 
+.container-percentage .high {
+    width: 50%;
+}
+
+.container-answers input:first-child {
+    background-color: #d8f7d9;
+}
+
+.building-quizz ion-icon {
+    /* text-align: center; */
+    font-size: 50px;
+    color:  #6c8fb8;
+    margin: 0 auto;
+    margin-bottom: 40px;
+}
+
+.container-percentage .low, 
+.container-percentage .high {
+    background-color: #fff;
+    height: 36px;
+}
+
+.level-title, 
+.link-image-level {
+    width: 98%;
+    margin-top: 4px;
+    height: 36px;
+    border: 0;
+    border-radius: 10px;
+    padding: 10px;
+}
+
+textarea {
+    width: 98%;
+    margin-top: 6px; 
+    border: 0;
+    border-radius: 10px;
+    padding: 10px;
+    resize: none;
+}
+
+.building-quizz button {
+    width: 100%;
+    height: 44px;
+    border: 0;
+    border-radius: 10px;
+    color: white;
+    cursor: pointer;
+}
+

@@ -10,7 +10,7 @@ body {
 /*---------------LOGIN SCREEN---------------*/
 
 .login {
-    display: flex;
+    display: none;
     flex-direction: column;
     align-items: center;
     justify-content: center;
@@ -72,7 +72,7 @@ body {
      display: none ; 
 }
 
-.user-quizzes header {
+header {
     width: 100%;
     height: 70px;
     padding: 20px;
@@ -87,11 +87,6 @@ body {
     display: flex;
     justify-content: center;
     flex-wrap: wrap;
-    /* height: 100vh;
-    display: flex;
-    align-items: center;
-    justify-content: center; */
-
 }
 .user-quizzes .new-quizz,
 .user-quizzes .my-quizzes .quizz {
@@ -120,9 +115,13 @@ body {
     text-align: center;
     font-size: 20px;
 }
-@media (max-width:700px) {
 
-    .user-quizzes header {
+
+/*---------------MOBILE VERSION---------------*/
+
+@media (max-width:900px) {
+
+    header {
         height: 65px;
         padding-top: 15px;
     }
