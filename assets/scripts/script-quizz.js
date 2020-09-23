@@ -20,7 +20,7 @@ function requestQuizzesError () {
 function postNewQuizzServer() {
 
     if (buildObjectNewQuizz()) {
-        var requestPost = axios.post("https://mock-api.bootcamp.respondeai.com.br/api/v1/buzzquizz/quizzes", currentQUizz , { headers: headerObject });
+        var requestPost = axios.post("https://mock-api.bootcamp.respondeai.com.br/api/v1/buzzquizz/quizzesERRADO", currentQUizz , { headers: headerObject });
         requestPost.then(processPostNewQuizz);
         requestPost.catch(PostNewQuizzError);
     }
@@ -36,8 +36,8 @@ function PostNewQuizzError () {
 //FUNCÇOES PARA CONSTRUIR MEU OBJETO NOS MOLDES DA DOCUMENTAÇÃO DO SERVIDOR
 function buildObjectNewQuizz() {
 
-    var inputTitle = document.querySelector(".title-quizz");   //TItulo do Quizz
-    currentQUizz.title = inputTitle.value;
+
+    currentQUizz.title = titleValidation();
 
     currentQUizz.data = {};
     currentQUizz.data.questions = [{}];
@@ -72,7 +72,7 @@ function grabQuestionSentences() {
     var questionSentences = [];
 
     for(var i = 0; i< inputQuestion.length ; i++) {
-        questionSentences[i] = inputQuestion[i].value;   
+        questionSentences[i] = inputQuestion[i].value.trim();
     }
     return  questionSentences;
 }
@@ -81,7 +81,7 @@ function buildFieldAnswer() {
     var inputAnswer = document.querySelectorAll(".answers input");
     var answersVector = [];
     for(var i=0; i <inputAnswer.length; i++) {
-        answersVector[i] = inputAnswer[i].value;
+        answersVector[i] = inputAnswer[i].value.trim();
     }
     return answersVector;
 }
@@ -90,7 +90,7 @@ function buildFieldImagesLinks() {
     var inputLink = document.querySelectorAll(".images-links input");
     var linksVector = [];
     for(var i=0; i <inputLink.length; i++) {
-        linksVector[i] = inputLink[i].value;
+        linksVector[i] = inputLink[i].value.trim();
     }
     return linksVector;
 }
@@ -106,9 +106,16 @@ function buildLevelVectorObjects() {
   
     for (var i=0; i < numberOfLevels; i++) {
 
-        levelObjects[i] = {"minScore": minPorcentage[i].value, "maxScore": maxPorcentage[i].value, "title": titleLevel[i].value, "link": imageLink[i].value, "description": levelDescription[i].value };
+        levelObjects[i] = {"minScore": minPorcentage[i].value.trim(), "maxScore": maxPorcentage[i].value.trim(), "title": titleLevel[i].value.trim(), "link": imageLink[i].value.trim(), "description": levelDescription[i].value.trim()};
     }
     return levelObjects;
+}
+function titleValidation() {
+    var titleText = document.querySelector(".title-quizz").value;   //TItulo do Quizz
+    titleText = titleText.trim();            //remover espaços em branco no inicio e final da string
+    titleText = titleText.toLowerCase();
+    titleText[0] = titleText[0].toUpperCase();
+    return titleText;
 }
 
 // NAVEGAÇÃO: MUDANÇAS DE TELA
@@ -185,7 +192,7 @@ function renderMyQuizzes(myQuizzes) {
 
     var listQuizzes = document.querySelector(".my-quizzes");
     for (var i = 0; i < myQuizzes.length; i++) {
-        
+
         var oneQuizz = document.createElement("li");
         oneQuizz.classList.add("quizz");
         oneQuizz.innerText = myQuizzes[i].title;
