@@ -39,63 +39,80 @@ function postNewQuizzServer() {
 
 function buildObjectNewQuizz() {
 
-    var inputTitle = document.querySelector(".title-quizz");
+    var inputTitle = document.querySelector(".title-quizz");   //TItulo do Quizz
     currentQUizz.title = inputTitle.value;
 
-    var inputQuestion = document.querySelector(".new-question").value;    /*maybe use querySelectorAll*/
-
-    var answersVector = buildFieldAnswer();
-
-    var ImageLinkVector = buildFieldImagesLinks();
-
-    var levelObject = buildLevelObject();
-      
     currentQUizz.data = {};
-    currentQUizz.data.questions = {};
-    currentQUizz.data.questions =  {"question-title": inputQuestion, "answers": answersVector, "links": ImageLinkVector};
-    currentQUizz.data.level = levelObject;
+    currentQUizz.data.questions = [{}];
+    currentQUizz.data.level = [{}];
 
+    var questionSentences = grabQuestionSentences();   //retorna todas as perguntas principais
+
+    var allAnswersVector = buildFieldAnswer();
+    var allLinksVector = buildFieldImagesLinks();
+    var cont = 0;
+    var answersVectorOneQuestion = [];
+    var linksVectorOneQuestion = [];
+    
+    
+    for (var i = 0; i<numberOfQuestions; i++) {               //construindo titulo das perguntas, respostas e links
+
+        answersVectorOneQuestion = allAnswersVector.slice(cont,cont+4);
+        linksVectorOneQuestion = allLinksVector.slice(cont,cont+4);
+        currentQUizz.data.questions[i] = {"question-title": questionSentences[i], "answers": answersVectorOneQuestion, "links": linksVectorOneQuestion};
+        cont += 4;
+    }
+
+    currentQUizz.data.level = buildLevelVectorObjects();
+
+    console.log("Aqui objeto Quizz", currentQUizz);
     return true;
+}
+
+function grabQuestionSentences() {
+    
+    var inputQuestion = document.querySelectorAll(".new-question");
+    var questionSentences = [];
+
+    for(var i = 0; i< inputQuestion.length ; i++) {
+        questionSentences[i] = inputQuestion[i].value;   
+    }
+    return  questionSentences;
 }
 function buildFieldAnswer() {
 
-    var inputAnswer = document.querySelector(".correct-answer");
+    var inputAnswer = document.querySelectorAll(".answers input");
     var answersVector = [];
-    answersVector[0] =  inputAnswer.value;
-    inputAnswer = document.querySelectorAll(".wrong-answer");
-    for(var i=0; i <3; i++) {
-        answersVector[i+1] = inputAnswer[i].value;
+    for(var i=0; i <inputAnswer.length; i++) {
+        answersVector[i] = inputAnswer[i].value;
     }
     return answersVector;
 }
 function buildFieldImagesLinks() {
 
-    var inputLink = document.querySelector(".correct-link");
+    var inputLink = document.querySelectorAll(".images-links input");
     var linksVector = [];
-    linksVector[0] =  inputLink.value;
-    inputLink = document.querySelectorAll(".wrong-link");
-    for(var i=0; i <3; i++) {
-        linksVector[i+1] = inputLink[i].value;
+    for(var i=0; i <inputLink.length; i++) {
+        linksVector[i] = inputLink[i].value;
     }
     return linksVector;
 }
-function buildLevelObject() {
 
-    var levelObject = {};
+function buildLevelVectorObjects() {
 
-    var minPorcentage = document.querySelector(".low").value;
-    var maxPorcentage = document.querySelector(".high").value;
-    var titleLevel = document.querySelector(".level-title").value;
-    var imageLink = document.querySelector(".link-image-level").value;
-    var levelDescription = document.querySelector("textarea").value;
+    var levelObjects = [{}];
 
-    levelObject.minScore = minPorcentage;
-    levelObject.maxScore = maxPorcentage;
-    levelObject.title = titleLevel;
-    levelObject.link = imageLink;
-    levelObject.desciption = levelDescription;
+    var minPorcentage = document.querySelectorAll(".low");
+    var maxPorcentage = document.querySelectorAll(".high");
+    var titleLevel = document.querySelectorAll(".level-title");
+    var imageLink = document.querySelectorAll(".link-image-level");
+    var levelDescription = document.querySelectorAll("textarea");
+  
+    for (var i=0; i < numberOfLevels; i++) {
 
-    return levelObject;
+        levelObjects[i] = {"minScore": minPorcentage[i].value, "maxScore": maxPorcentage[i].value, "title": titleLevel[i].value, "link": imageLink[i].value, "description": levelDescription[i].value };
+    }
+    return levelObjects;
 }
 
 
