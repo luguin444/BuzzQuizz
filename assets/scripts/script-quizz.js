@@ -73,6 +73,7 @@ function grabQuestionSentences() {
 
     for(var i = 0; i< inputQuestion.length ; i++) {
         questionSentences[i] = inputQuestion[i].value.trim();
+        questionSentences[i] = firstLetterToUpper(questionSentences[i]);
     }
     return  questionSentences;
 }
@@ -113,9 +114,16 @@ function buildLevelVectorObjects() {
 function titleValidation() {
     var titleText = document.querySelector(".title-quizz").value;   //TItulo do Quizz
     titleText = titleText.trim();            //remover espaços em branco no inicio e final da string
-    titleText = titleText.toLowerCase();
-    titleText[0] = titleText[0].toUpperCase();
+    titleText = firstLetterToUpper(titleText);
+
     return titleText;
+}
+function firstLetterToUpper(text) {
+
+    text = text.toLowerCase();
+    var firstLetter = text.charAt(0).toUpperCase();
+    text = firstLetter + text.slice(1);  //slice(vai da posição 1 até o final)
+    return text;
 }
 
 // NAVEGAÇÃO: MUDANÇAS DE TELA
