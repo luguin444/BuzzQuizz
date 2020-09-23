@@ -22,5 +22,9 @@ function createNewQuizz() {
 }
 
 function changeForNewQuizzScreen () {
-    
+    var myQUizzesScreen = document.querySelector(".user-quizzes");
+    myQUizzesScreen.style.display = "none";
+
+    var newQuizzesScreen = document.querySelector(".new-quizzes");
+    newQuizzesScreen.style.display = "initial";
 }

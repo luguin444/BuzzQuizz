@@ -1,6 +1,10 @@
 
 /*---------------USER NEW QUIZZES SCREEN---------------*/
 
+.new-quizzes {
+    display: none;
+}
+
 .new-quizzes .building-quizz {
     width: 700px;
     margin: 40px auto;
