@@ -1,42 +1,39 @@
-
+//CARREGAR MEUS QUIZZES DO SERVIDOR
 function loadUserQuizzes () {
 
     headerObject = {"User-Token": token};
     var request = axios.get("https://mock-api.bootcamp.respondeai.com.br/api/v1/buzzquizz/quizzes", { headers: headerObject } );
-    request.then(teste);
+    request.then(processMyQUizzes);
     request.catch(requestQuizzesError);
 }
-
-function teste (response) {
+function processMyQUizzes (response) {
     console.log("Rolou de bucar os quizzes no servidor");
-    console.log(response);
+    console.log(response.data);
+    renderMyQuizzes(response.data);
 }
-
 function requestQuizzesError () {
     console.log("Não rolou de bucar os quizzes no servidor");
 }
 
 
-function createNewQuizz() {
-    changeForNewQuizzScreen ();
-}
-
-function changeForNewQuizzScreen () {
-    var myQUizzesScreen = document.querySelector(".user-quizzes");
-    myQUizzesScreen.style.display = "none";
-
-    var newQuizzesScreen = document.querySelector(".new-quizzes");
-    newQuizzesScreen.style.display = "initial";
-}
-
+//ENVIAR O NOVO QUIZZ PARA O SERVIDOR
 function postNewQuizzServer() {
 
     if (buildObjectNewQuizz()) {
-        console.log(currentQUizz);
+        var requestPost = axios.post("https://mock-api.bootcamp.respondeai.com.br/api/v1/buzzquizz/quizzes", currentQUizz , { headers: headerObject });
+        requestPost.then(processPostNewQuizz);
+        requestPost.catch(PostNewQuizzError);
     }
-
+}
+function processPostNewQuizz () {
+    console.log("Parabens! Você conseguiu postar o Quizz no servidor");
+    changeScreenForMyQuizzesAgain();
+}
+function PostNewQuizzError () {
+    console.log("Deu ruim! Você não conseguiu postar o Quizz no servidor");
 }
 
+//FUNCÇOES PARA CONSTRUIR MEU OBJETO NOS MOLDES DA DOCUMENTAÇÃO DO SERVIDOR
 function buildObjectNewQuizz() {
 
     var inputTitle = document.querySelector(".title-quizz");   //TItulo do Quizz
@@ -66,9 +63,9 @@ function buildObjectNewQuizz() {
     currentQUizz.data.level = buildLevelVectorObjects();
 
     console.log("Aqui objeto Quizz", currentQUizz);
-    return true;
-}
 
+    return true;    //caso só não tenha uma interrogação, enviar alert
+}
 function grabQuestionSentences() {
     
     var inputQuestion = document.querySelectorAll(".new-question");
@@ -97,7 +94,6 @@ function buildFieldImagesLinks() {
     }
     return linksVector;
 }
-
 function buildLevelVectorObjects() {
 
     var levelObjects = [{}];
@@ -115,7 +111,25 @@ function buildLevelVectorObjects() {
     return levelObjects;
 }
 
+// NAVEGAÇÃO: MUDANÇAS DE TELA
+function changeForNewQuizzScreen () {
+    var myQUizzesScreen = document.querySelector(".user-quizzes");
+    myQUizzesScreen.style.display = "none";
 
+    var newQuizzesScreen = document.querySelector(".new-quizzes");
+    newQuizzesScreen.style.display = "initial";
+}
+function changeScreenForMyQuizzesAgain() {
+
+    var newQuizzesScreen = document.querySelector(".new-quizzes");
+    newQuizzesScreen.style.display = "none";
+
+    var myQUizzesScreen = document.querySelector(".user-quizzes");
+    myQUizzesScreen.style.display = "initial";
+}
+
+
+//Adicionar niveis e perguntas no Quizz
 function addNewQuestion() {
 
     numberOfQuestions++;
@@ -126,7 +140,6 @@ function addNewQuestion() {
 
     listOfQuestionElement.appendChild(newBlockofQuestion);
 }
-
 function addNewLevel() {
 
     numberOfLevels++;
@@ -140,7 +153,6 @@ function addNewLevel() {
 }
 
 //  RENDERS
-
 function CreateHTMLBlockQuestion() {
 
     var newQuestion = document.createElement("li");
@@ -156,7 +168,6 @@ function CreateHTMLBlockQuestion() {
     return newQuestion;
 
 }
-
 function CreateHTMLBlockLevel() {
 
     var newLevel = document.createElement("li");
@@ -169,4 +180,15 @@ function CreateHTMLBlockLevel() {
 
     return newLevel;
 
+}
+function renderMyQuizzes(myQuizzes) {
+
+    var listQuizzes = document.querySelector(".my-quizzes");
+    for (var i = 0; i < myQuizzes.length; i++) {
+        
+        var oneQuizz = document.createElement("li");
+        oneQuizz.classList.add("quizz");
+        oneQuizz.innerText = myQuizzes[i].title;
+        listQuizzes.appendChild(oneQuizz);
+    }
 }

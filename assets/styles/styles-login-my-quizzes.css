@@ -88,6 +88,13 @@ header {
     justify-content: center;
     flex-wrap: wrap;
 }
+
+.user-quizzes .container-quizzes ul {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
 .user-quizzes .new-quizz,
 .user-quizzes .my-quizzes .quizz {
     width: 175px;
@@ -106,6 +113,7 @@ header {
 .user-quizzes .new-quizz ion-icon {
     font-size: 40px;
 }
+
 .user-quizzes .my-quizzes .quizz {
  
     color: black;
