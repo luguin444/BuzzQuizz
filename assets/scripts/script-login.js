@@ -2,6 +2,7 @@ var userEmail;    //luguin
 var userPassword; //8998
 var token;
 var headerObject = {};
+var currentQUizz = {};
 
 function validateDataWithServer () {
     

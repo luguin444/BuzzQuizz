@@ -58,16 +58,16 @@
                 <input type="text" placeholder="Digite a pergunta" class="new-question">
                 <div class="container-answers">
                     <div class="answers">
-                        <input type="text" placeholder="Digite a resposta certa">
-                        <input type="text" placeholder="Digite uma resposta errada1">
-                        <input type="text" placeholder="Digite uma resposta errada2">
-                        <input type="text" placeholder="Digite uma resposta errada3">
+                        <input type="text" placeholder="Digite a resposta certa" class = "correct-answer">
+                        <input type="text" placeholder="Digite uma resposta errada1" class="wrong-answer">
+                        <input type="text" placeholder="Digite uma resposta errada2" class="wrong-answer">
+                        <input type="text" placeholder="Digite uma resposta errada3" class="wrong-answer">
                     </div>
                     <div class="images-links">
-                        <input type="text" placeholder="Link para imagem correta">
-                        <input type="text" placeholder="Link para imagem errada1">
-                        <input type="text" placeholder="Link para imagem errada2">
-                        <input type="text" placeholder="Link para imagem errada3">
+                        <input type="text" placeholder="Link para imagem correta" class="correct-link">
+                        <input type="text" placeholder="Link para imagem errada1" class="wrong-link">
+                        <input type="text" placeholder="Link para imagem errada2" class="wrong-link">
+                        <input type="text" placeholder="Link para imagem errada3" class="wrong-link">
                     </div>
                 </div>
             </div>
@@ -91,7 +91,7 @@
 
             <ion-icon name="add-circle"></ion-icon>
 
-            <button class="theme">Publicar</button>
+            <button class="theme" onclick="postNewQuizzServer()">Publicar</button>
         </main>
 
         
