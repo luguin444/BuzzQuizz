@@ -57,7 +57,6 @@ function buildObjectNewQuizz() {
 
     return true;
 }
-
 function buildFieldAnswer() {
 
     var inputAnswer = document.querySelector(".correct-answer");
@@ -80,7 +79,6 @@ function buildFieldImagesLinks() {
     }
     return linksVector;
 }
-
 function buildLevelObject() {
 
     var levelObject = {};
@@ -98,4 +96,60 @@ function buildLevelObject() {
     levelObject.desciption = levelDescription;
 
     return levelObject;
+}
+
+
+function addNewQuestion() {
+
+    numberOfQuestions++;
+
+    var newBlockofQuestion = CreateHTMLBlockQuestion();
+
+    var listOfQuestionElement = document.querySelector(".building-quizz ul");
+
+    listOfQuestionElement.appendChild(newBlockofQuestion);
+}
+
+function addNewLevel() {
+
+    numberOfLevels++;
+
+    var newBlockofLevel = CreateHTMLBlockLevel();
+
+    var listOfLevelElement = document.querySelector(".building-quizz .list-levels");
+
+    listOfLevelElement.appendChild(newBlockofLevel);
+
+}
+
+//  RENDERS
+
+function CreateHTMLBlockQuestion() {
+
+    var newQuestion = document.createElement("li");
+
+    newQuestion.classList.add("question-container");
+
+        /*Caso queira ver essa estrutura, tem uma identada no arquivo HTML*/
+    
+    newQuestion.innerHTML = "<h2>Pergunta " + numberOfQuestions + "</h2>";
+    newQuestion.innerHTML += "<input type='text' placeholder='Digite a pergunta' class='new-question'></input>";
+    newQuestion.innerHTML += "<div class='container-answers'><div class='answers'><input type='text' placeholder='Digite a resposta certa' class = 'correct-answer'><input type='text' placeholder='Digite a resposta errada1' class = 'wrong-answer'><input type='text' placeholder='Digite a resposta errada2' class = 'wrong-answer'><input type='text' placeholder='Digite a resposta errada3' class = 'wrong-answer'></div><div class='images-links'><input type='text' placeholder='Link para imagem correta' class='correct-link'><input type='text' placeholder='Link para imagem errada1' class='wrong-link'><input type='text' placeholder='Link para imagem errada2' class='wrong-link'><input type='text' placeholder='Link para imagem errada3' class='wrong-link'></div></div>";
+  
+    return newQuestion;
+
+}
+
+function CreateHTMLBlockLevel() {
+
+    var newLevel = document.createElement("li");
+
+    newLevel.classList.add("level-container");
+
+        /*Caso queira ver essa estrutura, tem uma identada no arquivo HTML*/
+
+    newLevel.innerHTML = "<h2>Nível " + numberOfLevels + "</h2><div class='container-percentage'><input type='text' placeholder=' % Minima de acerto do nível' class='low'><input type='text' placeholder=' % Máxima de acerto do nível' class='high'></div><input type='text' placeholder='Título do nível' class='level-title'><input type='text' placeholder='LInk da imagem do nível' class='link-image-level'><textarea cols='30' rows='3' placeholder='Descrição do nível'></textarea>"
+
+    return newLevel;
+
 }

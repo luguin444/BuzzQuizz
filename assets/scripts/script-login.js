@@ -3,6 +3,8 @@ var userPassword; //8998
 var token;
 var headerObject = {};
 var currentQUizz = {};
+var numberOfQuestions = 1;
+var numberOfLevels = 1;
 
 function validateDataWithServer () {
     

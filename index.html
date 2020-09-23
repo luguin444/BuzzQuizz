@@ -53,43 +53,48 @@
         <main class="building-quizz">
             <input type="text" placeholder="Digite o títuilo do seu quizz" class="title-quizz">
 
-            <div class="new-question-container">
-                <h2>Pergunta 1</h2>
-                <input type="text" placeholder="Digite a pergunta" class="new-question">
-                <div class="container-answers">
-                    <div class="answers">
-                        <input type="text" placeholder="Digite a resposta certa" class = "correct-answer">
-                        <input type="text" placeholder="Digite uma resposta errada1" class="wrong-answer">
-                        <input type="text" placeholder="Digite uma resposta errada2" class="wrong-answer">
-                        <input type="text" placeholder="Digite uma resposta errada3" class="wrong-answer">
+            <ul>
+                <li class="question-container">
+                    <h2>Pergunta 1</h2>
+                    <input type="text" placeholder="Digite a pergunta" class="new-question">
+                    <div class="container-answers">
+                        <div class="answers">
+                            <input type="text" placeholder="Digite a resposta certa" class = "correct-answer">
+                            <input type="text" placeholder="Digite uma resposta errada1" class="wrong-answer">
+                            <input type="text" placeholder="Digite uma resposta errada2" class="wrong-answer">
+                            <input type="text" placeholder="Digite uma resposta errada3" class="wrong-answer">
+                        </div>
+                        <div class="images-links">
+                            <input type="text" placeholder="Link para imagem correta" class="correct-link">
+                            <input type="text" placeholder="Link para imagem errada1" class="wrong-link">
+                            <input type="text" placeholder="Link para imagem errada2" class="wrong-link">
+                            <input type="text" placeholder="Link para imagem errada3" class="wrong-link">
+                        </div>
                     </div>
-                    <div class="images-links">
-                        <input type="text" placeholder="Link para imagem correta" class="correct-link">
-                        <input type="text" placeholder="Link para imagem errada1" class="wrong-link">
-                        <input type="text" placeholder="Link para imagem errada2" class="wrong-link">
-                        <input type="text" placeholder="Link para imagem errada3" class="wrong-link">
-                    </div>
-                </div>
-            </div>
+                </li>    
+            </ul>
+           
+            <ion-icon name="add-circle" onclick="addNewQuestion()"></ion-icon>
 
-            <ion-icon name="add-circle"></ion-icon>
-
-            <div class="new-level-container">
+            <ul class= "list-levels">
+                <li class="level-container">
                 
-                <h2>Nível 1</h2>
+                    <h2>Nível 1</h2>
+    
+                    <div class="container-percentage">
+                        <input type='text' placeholder=' % Minima de acerto do nível' class='low'>
+                        <input type='text' placeholder=' % Máxima de acerto do nível' class='high'>
+                    </div>
+    
+                    <input type='text' placeholder='Título do nível' class='level-title'>
+                    <input type='text' placeholder='LInk da imagem do nível' class='link-image-level'>
+                    <textarea cols='30' rows='3' placeholder='Descrição do nível'>
+                    </textarea>
+                </li>
+            </ul>
+            
 
-                <div class="container-percentage">
-                    <input type="text" placeholder=" % Minima de acerto do nível" class="low">
-                    <input type="text" placeholder=" % Máxima de acerto do nível" class="high">
-                </div>
-
-                <input type="text" placeholder="Título do nível" class="level-title">
-                <input type="text" placeholder="LInk da imagem do nível" class="link-image-level">
-                <textarea name="" id="" cols="30" rows="3" placeholder="Descrição do nível">
-                </textarea>
-            </div>
-
-            <ion-icon name="add-circle"></ion-icon>
+            <ion-icon name="add-circle" onclick="addNewLevel()"></ion-icon>
 
             <button class="theme" onclick="postNewQuizzServer()">Publicar</button>
         </main>
