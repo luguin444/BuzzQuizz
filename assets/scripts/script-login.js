@@ -5,6 +5,7 @@ var headerObject = {};
 var currentQUizz = {};
 var numberOfQuestions = 1;
 var numberOfLevels = 1;
+var myQuizzes = [];
 
 function validateDataWithServer () {
     

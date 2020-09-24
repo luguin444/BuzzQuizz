@@ -9,7 +9,8 @@ function loadUserQuizzes () {
 function processMyQUizzes (response) {
     console.log("Rolou de bucar os quizzes no servidor");
     console.log(response.data);
-    renderMyQuizzes(response.data);
+    myQuizzes = response.data;
+    renderMyQuizzes();
 }
 function requestQuizzesError () {
     console.log("Não rolou de bucar os quizzes no servidor");
@@ -139,8 +140,13 @@ function changeScreenForMyQuizzesAgain() {
     var newQuizzesScreen = document.querySelector(".new-quizzes");
     newQuizzesScreen.style.display = "none";
 
+    var gameScreen = document.querySelector(".game");
+    gameScreen.style.display = "none";
+
     var myQUizzesScreen = document.querySelector(".user-quizzes");
     myQUizzesScreen.style.display = "initial";
+
+
 }
 
 
@@ -196,13 +202,16 @@ function CreateHTMLBlockLevel() {
     return newLevel;
 
 }
-function renderMyQuizzes(myQuizzes) {
+function renderMyQuizzes() {
 
     var listQuizzes = document.querySelector(".my-quizzes");
     for (var i = 0; i < myQuizzes.length; i++) {
 
         var oneQuizz = document.createElement("li");
         oneQuizz.classList.add("quizz");
+        oneQuizz.setAttribute("id", myQuizzes[i].id);
+        var id = myQuizzes[i].id; 
+        oneQuizz.setAttribute("onclick", "startQuizzClicked(id)");
         oneQuizz.innerText = myQuizzes[i].title;
         listQuizzes.appendChild(oneQuizz);
     }
