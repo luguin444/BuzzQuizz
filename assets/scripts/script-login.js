@@ -6,6 +6,7 @@ var currentQUizz = {};
 var numberOfQuestions = 1;
 var numberOfLevels = 1;
 var myQuizzes = [];
+var QuizzClicked = {};  //quizz escolhido para jogar
 
 function validateDataWithServer () {
     

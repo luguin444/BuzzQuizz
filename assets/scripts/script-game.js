@@ -4,7 +4,7 @@ function startQuizzClicked (quizzID) {
     QuizzClicked = searchQuizzClickedInMyQuizzes(quizzID);
 
     LoadLayoutGame();
-    RenderLayoutGame(QuizzClicked);
+    RenderLayoutGame();
     // console.log("titulo", QuizzClicked.title);
 }
 
@@ -19,6 +19,23 @@ function searchQuizzClickedInMyQuizzes(quizzID) {
     }
 }
 
+function showCorrectAnswer() {
+
+    var elementsQuizzAnswersBox = document.querySelectorAll(".game .box-answer");
+    var elementsQuizzAnswers = document.querySelectorAll(".game .box-answer span");
+
+    for(var i=0; i<4; i++) {
+
+        var isAnswerCorrect = elementsQuizzAnswers[i].innerText === QuizzClicked.data.questions[0].answers[0];
+        if(isAnswerCorrect) {
+            elementsQuizzAnswersBox[i].style.background = "#95f0b8";
+        } else {
+            elementsQuizzAnswersBox[i].style.background = "#f5b9bb";
+        }
+    }
+}
+
+
 //NAVEGAÇÃO: trocar para layout GAME
 function LoadLayoutGame() {
 
@@ -30,7 +47,7 @@ function LoadLayoutGame() {
 
 }
 
-function RenderLayoutGame(QuizzClicked) {
+function RenderLayoutGame() {
 
     var elementQuizzTitle = document.querySelector(".game h2");
     elementQuizzTitle.innerText = QuizzClicked.title;
@@ -38,19 +55,24 @@ function RenderLayoutGame(QuizzClicked) {
     var elementQuizzCurrentQuestion = document.querySelector(".game .current-question");
     elementQuizzCurrentQuestion.innerText = QuizzClicked.data.questions[0]["question-title"];
 
-    var answerCorrect = QuizzClicked.data.questions[0].answers[0];
-    answersVectorShuffled = QuizzClicked.data.questions[0].answers.sort(shufflePositions);
 
-    var elementsQuizzAnswers = document.querySelectorAll(".game .box-answer span")
+    var vetAuxiliar = [0,1,2,3];
+    vetAuxiliar = vetAuxiliar.sort(shufflePositions);
+    
+    var elementsQuizzAnswers = document.querySelectorAll(".game .box-answer span");
+    var elementsQuizzLinks = document.querySelectorAll(".game .box-answer img");
 
     for (var i =0;i< 4; i++) {
-        elementsQuizzAnswers[i].innerText = answersVectorShuffled[i];
+
+        var randomPosition = vetAuxiliar[i];
+        elementsQuizzAnswers[i].innerText = QuizzClicked.data.questions[0].answers[randomPosition];
+        elementsQuizzLinks[i].setAttribute("id",QuizzClicked.data.questions[0].links[randomPosition]);
     }
-
-     console.log(answersVectorShuffled);
-
 }
 
 function shufflePositions() {
     return Math.random() - 0.5;
 }
+
+
+// console.log(vetAuxiliar)
