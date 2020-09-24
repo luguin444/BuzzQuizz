@@ -25,6 +25,7 @@
     padding: 1rem;
     font-family: 'Merriweather', serif;
     margin-bottom: 1.2rem;
+    border-radius: 0.3rem;
 }
 
  .game .container-answers {
@@ -69,7 +70,6 @@
     border-top-right-radius: 0.8rem;
     margin-bottom: 0.9rem;
 }
-
 .game .box-answer span {
     margin-left: -17rem;
     font-size: 1.4rem;
@@ -77,3 +77,43 @@
     font-weight: bold;
 }
 
+@media (max-width: 700px) {
+
+    .game h2 {
+        margin: 2rem 0.6rem 1.5rem 0.6rem;
+    }
+
+    .game .current-question {
+        font-size: 1.4rem;
+        line-height: 2rem;
+    }
+
+    .game .up-container,
+    .game .down-container {
+        width: 100%;
+        margin-bottom: 0;
+        flex-wrap: wrap;
+    }
+
+    .game .up-container .box-answer,
+    .game .down-container .box-answer {
+        width: 80%;
+        margin-bottom: 1rem;
+        margin-right: 0;
+    }
+
+    .game .container-answers {
+        width: 100%;
+        display: flex;
+        /* flex-direction: column; */
+        flex-wrap: wrap;
+        margin-bottom: 1.6rem;
+    } 
+
+    .game .box-answer span {
+        margin-left: 0;
+    }
+
+    
+    
+}
