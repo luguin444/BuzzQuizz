@@ -39,6 +39,7 @@ function showCorrectAnswer(answerClicked) {
 
     else if (!isNotAlreadyLastQuestion) {
         changeScreenEndOfGame();
+        calculateLevel();
         renderFinalScreen();
     }
 
@@ -51,6 +52,22 @@ function changeCurrentQuestion() {
     RenderLayoutGame();
     removeCorrectAnwer();
     lockClick = false;
+}
+
+function calculateLevel() {
+
+    var numberOfQuestions = currentQuestionPosition + 1;
+    percentageScore = (myScore/numberOfQuestions)*100;
+    percentageScore = Math.ceil(percentageScore);
+
+    for (var i = 0; i< QuizzClicked.data.level.length; i++) {
+
+        var minScore = QuizzClicked.data.level[i].minScore;
+        var maxScore = QuizzClicked.data.level[i].maxScore
+        if (percentageScore >= minScore && percentageScore<=maxScore) {
+            userLevelScore = QuizzClicked.data.level[i];
+        }
+    }
 }
 
 
@@ -86,9 +103,15 @@ function renderFinalScreen() {
     var numberOfQuestions = currentQuestionPosition + 1;
 
     var elementScoreNumberOfQuestion = document.querySelector(".result .score :first-child");
-    elementScoreNumberOfQuestion.innerText = "Você acertou " + myScore + " de " + numberOfQuestions + " perguntas!"
+    elementScoreNumberOfQuestion.innerText = "Você acertou " + myScore + " de " + numberOfQuestions + " perguntas!";
 
-    //console.log(elementScoreNumberOfQuestion.innerText); 
+    var elementScoreNumberOfQuestion = document.querySelector(".result .score :last-child");
+    elementScoreNumberOfQuestion.innerText = "Score: " + percentageScore + " %";
+
+    var elementTitleLevel = document.querySelector(".result .level-title");
+    
+    elementTitleLevel.innerText = userLevelScore.title;
+
 }
 
 //ADICIONA E REMOVE O BACKGROUND VERMELHO E VERDE DAS RESPOSTAS

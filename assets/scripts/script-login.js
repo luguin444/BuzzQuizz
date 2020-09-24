@@ -11,6 +11,8 @@ var currentQuestion = {};
 var currentQuestionPosition = 0;
 var lockClick = false;
 var myScore = 0;
+var percentageScore = null;
+var userLevelScore = {};
 
 function validateDataWithServer () {
     
