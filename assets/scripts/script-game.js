@@ -4,6 +4,9 @@ function startQuizzClicked (quizzID) {
     QuizzClicked = searchQuizzClickedInMyQuizzes(quizzID);
 
     LoadLayoutGame();
+
+    currentQuestion = QuizzClicked.data.questions[currentQuestionPosition];
+
     RenderLayoutGame();
     // console.log("titulo", QuizzClicked.title);
 }
@@ -26,14 +29,30 @@ function showCorrectAnswer() {
 
     for(var i=0; i<4; i++) {
 
-        var isAnswerCorrect = elementsQuizzAnswers[i].innerText === QuizzClicked.data.questions[0].answers[0];
+        var isAnswerCorrect = elementsQuizzAnswers[i].innerText === currentQuestion.answers[0];
         if(isAnswerCorrect) {
             elementsQuizzAnswersBox[i].style.background = "#95f0b8";
         } else {
             elementsQuizzAnswersBox[i].style.background = "#f5b9bb";
         }
     }
+    var isNotAlreadyLastQuestion = currentQuestionPosition < QuizzClicked.data.questions.length -1;
+    if (lockClick === false && isNotAlreadyLastQuestion ) {
+        lockClick = true;
+        setTimeout(changeCurrentQuestion,2000);
+    }
 }
+       
+
+function changeCurrentQuestion() {
+
+    currentQuestionPosition++;
+    currentQuestion = QuizzClicked.data.questions[currentQuestionPosition];
+    RenderLayoutGame();
+    removeCorrectAnwer();
+    lockClick = false;
+}
+
 
 
 //NAVEGAÇÃO: trocar para layout GAME
@@ -47,13 +66,22 @@ function LoadLayoutGame() {
 
 }
 
+function removeCorrectAnwer() {
+    var elementsQuizzAnswersBox = document.querySelectorAll(".game .box-answer");
+
+    for(var i=0; i<4; i++) {
+        elementsQuizzAnswersBox[i].style.background = "#fff"
+    }
+
+}
+
 function RenderLayoutGame() {
 
     var elementQuizzTitle = document.querySelector(".game h2");
     elementQuizzTitle.innerText = QuizzClicked.title;
 
     var elementQuizzCurrentQuestion = document.querySelector(".game .current-question");
-    elementQuizzCurrentQuestion.innerText = QuizzClicked.data.questions[0]["question-title"];
+    elementQuizzCurrentQuestion.innerText = currentQuestion["question-title"];
 
 
     var vetAuxiliar = [0,1,2,3];
@@ -65,8 +93,8 @@ function RenderLayoutGame() {
     for (var i =0;i< 4; i++) {
 
         var randomPosition = vetAuxiliar[i];
-        elementsQuizzAnswers[i].innerText = QuizzClicked.data.questions[0].answers[randomPosition];
-        elementsQuizzLinks[i].setAttribute("id",QuizzClicked.data.questions[0].links[randomPosition]);
+        elementsQuizzAnswers[i].innerText = currentQuestion.answers[randomPosition];
+        elementsQuizzLinks[i].setAttribute("id",currentQuestion.links[randomPosition]);
     }
 }
 
