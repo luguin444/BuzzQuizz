@@ -31,17 +31,18 @@ function showCorrectAnswer(answerClicked) {
 
     var isNotAlreadyLastQuestion = currentQuestionPosition < QuizzClicked.data.questions.length -1;  //true = not last question ;
 
+
     if (lockClick === false && isNotAlreadyLastQuestion ) {
         lockClick = true;
         setTimeout(changeCurrentQuestion,2000);
     }  
 
     else if (!isNotAlreadyLastQuestion) {
-        console.log(myScore);
+        changeScreenEndOfGame();
+        renderFinalScreen();
     }
 
 }
-
 
 function changeCurrentQuestion() {
 
@@ -54,7 +55,7 @@ function changeCurrentQuestion() {
 
 
 
-//DESTRIBUIR O TITULO. TBM AS    PERGUNTAS, RESPOSTAS E LINKS ATUAIS NA TELA DO JOGO
+//RENDER:  DESTRIBUIR O TITULO. TBM AS    PERGUNTAS, RESPOSTAS E LINKS ATUAIS NA TELA DO JOGO
 function RenderLayoutGame() {
 
     var elementQuizzTitle = document.querySelector(".game h2");
@@ -76,6 +77,18 @@ function RenderLayoutGame() {
         elementsQuizzAnswers[i].innerText = currentQuestion.answers[randomPosition];
         elementsQuizzLinks[i].setAttribute("id",currentQuestion.links[randomPosition]);
     }
+}
+//RENDER:  
+function renderFinalScreen() {
+    var elementQuizzTitle = document.querySelector(".result h2");
+    elementQuizzTitle.innerText = QuizzClicked.title;
+
+    var numberOfQuestions = currentQuestionPosition + 1;
+
+    var elementScoreNumberOfQuestion = document.querySelector(".result .score :first-child");
+    elementScoreNumberOfQuestion.innerText = "Você acertou " + myScore + " de " + numberOfQuestions + " perguntas!"
+
+    //console.log(elementScoreNumberOfQuestion.innerText); 
 }
 
 //ADICIONA E REMOVE O BACKGROUND VERMELHO E VERDE DAS RESPOSTAS

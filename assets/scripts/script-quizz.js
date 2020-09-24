@@ -157,6 +157,14 @@ function LoadLayoutGame() {
     gameScreen.style.display = "initial";
 
 }
+function changeScreenEndOfGame() {
+
+    var gameScreen = document.querySelector(".game");
+    gameScreen.style.display = "none";
+
+    var finalScreen = document.querySelector(".result");
+    finalScreen.style.display = "initial";
+}
 
 
 //Adicionar niveis e perguntas no Quizz
