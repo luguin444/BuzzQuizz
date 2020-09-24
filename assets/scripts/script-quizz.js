@@ -148,6 +148,15 @@ function changeScreenForMyQuizzesAgain() {
 
 
 }
+function LoadLayoutGame() {
+
+    var myQUizzesScreen = document.querySelector(".user-quizzes");
+    myQUizzesScreen.style.display = "none";
+
+    var gameScreen = document.querySelector(".game");
+    gameScreen.style.display = "initial";
+
+}
 
 
 //Adicionar niveis e perguntas no Quizz

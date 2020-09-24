@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="assets/styles/styles-login-my-quizzes.css">
     <link rel="stylesheet" href="assets/styles/styles-new-quizzes-game.css">
     <link rel="stylesheet" href="assets/styles/styles-game.css">
+    <link rel="stylesheet" href="assets/styles/final-game.css">
 
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@400;700&display=swap" rel="stylesheet">
@@ -112,28 +113,37 @@
             </div>
             <div class="container-answers">
                 <div class="up-container">
-                    <div class="box-answer" onclick="showCorrectAnswer()">
-                        <img src="/assets/imagens/idea.jpeg">
+                    <div class="box-answer" onclick="showCorrectAnswer(this)">
+                        <img src="/assets/imagens/catioro.jpeg">
                         <span>Gato</span>
                     </div>
-                    <div class="box-answer" onclick="showCorrectAnswer()">
-                        <img src="/assets/imagens/idea.jpeg">
+                    <div class="box-answer" onclick="showCorrectAnswer(this)">
+                        <img src="/assets/imagens/catioro2.jpeg">
                         <span>Rato</span>
                     </div>
                 </div>
-                <div class="down-container" onclick="showCorrectAnswer()">
+                <div class="down-container" onclick="showCorrectAnswer(this)">
                     <div class="box-answer">
-                        <img src="/assets/imagens/idea.jpeg">
+                        <img src="/assets/imagens/monkey.jpeg">
                         <span>Gato</span>
                     </div>
-                    <div class="box-answer" onclick="showCorrectAnswer()">
-                        <img src="/assets/imagens/idea.jpeg">
+                    <div class="box-answer" onclick="showCorrectAnswer(this)">
+                        <img src="/assets/imagens/monkey2.jpeg">
                         <span>Rato</span>
                     </div>
                 </div>
             </div>
         </main>
        
+    </section>
+
+    <section class="result">
+        <header class="theme">
+            <h1 onclick="changeScreenForMyQuizzesAgain()">BuzzQuizz</h1>
+        </header>
+        <main>
+            <h2>O quão PotterHead você é ?</h2>
+        </main>
     </section>
     
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>  <!--axios git hub-->

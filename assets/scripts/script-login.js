@@ -10,6 +10,7 @@ var QuizzClicked = {};  //quizz escolhido para jogar
 var currentQuestion = {};
 var currentQuestionPosition = 0;
 var lockClick = false;
+var myScore = 0;
 
 function validateDataWithServer () {
     

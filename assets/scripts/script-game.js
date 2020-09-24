@@ -1,4 +1,3 @@
-
 function startQuizzClicked (quizzID) {
     
     QuizzClicked = searchQuizzClickedInMyQuizzes(quizzID);
@@ -8,7 +7,6 @@ function startQuizzClicked (quizzID) {
     currentQuestion = QuizzClicked.data.questions[currentQuestionPosition];
 
     RenderLayoutGame();
-    // console.log("titulo", QuizzClicked.title);
 }
 
 function searchQuizzClickedInMyQuizzes(quizzID) {
@@ -22,27 +20,28 @@ function searchQuizzClickedInMyQuizzes(quizzID) {
     }
 }
 
-function showCorrectAnswer() {
+function showCorrectAnswer(answerClicked) {
 
-    var elementsQuizzAnswersBox = document.querySelectorAll(".game .box-answer");
-    var elementsQuizzAnswers = document.querySelectorAll(".game .box-answer span");
-
-    for(var i=0; i<4; i++) {
-
-        var isAnswerCorrect = elementsQuizzAnswers[i].innerText === currentQuestion.answers[0];
-        if(isAnswerCorrect) {
-            elementsQuizzAnswersBox[i].style.background = "#95f0b8";
-        } else {
-            elementsQuizzAnswersBox[i].style.background = "#f5b9bb";
-        }
+    var userAnswer = answerClicked.querySelector("span").innerText;
+    if (userAnswer === currentQuestion.answers[0]){
+        myScore++;
     }
-    var isNotAlreadyLastQuestion = currentQuestionPosition < QuizzClicked.data.questions.length -1;
+
+    changeCSSBackgroundToShowAnswers();
+
+    var isNotAlreadyLastQuestion = currentQuestionPosition < QuizzClicked.data.questions.length -1;  //true = not last question ;
+
     if (lockClick === false && isNotAlreadyLastQuestion ) {
         lockClick = true;
         setTimeout(changeCurrentQuestion,2000);
+    }  
+
+    else if (!isNotAlreadyLastQuestion) {
+        console.log(myScore);
     }
+
 }
-       
+
 
 function changeCurrentQuestion() {
 
@@ -55,26 +54,7 @@ function changeCurrentQuestion() {
 
 
 
-//NAVEGAÇÃO: trocar para layout GAME
-function LoadLayoutGame() {
-
-    var myQUizzesScreen = document.querySelector(".user-quizzes");
-    myQUizzesScreen.style.display = "none";
-
-    var gameScreen = document.querySelector(".game");
-    gameScreen.style.display = "initial";
-
-}
-
-function removeCorrectAnwer() {
-    var elementsQuizzAnswersBox = document.querySelectorAll(".game .box-answer");
-
-    for(var i=0; i<4; i++) {
-        elementsQuizzAnswersBox[i].style.background = "#fff"
-    }
-
-}
-
+//DESTRIBUIR O TITULO. TBM AS    PERGUNTAS, RESPOSTAS E LINKS ATUAIS NA TELA DO JOGO
 function RenderLayoutGame() {
 
     var elementQuizzTitle = document.querySelector(".game h2");
@@ -98,9 +78,33 @@ function RenderLayoutGame() {
     }
 }
 
+//ADICIONA E REMOVE O BACKGROUND VERMELHO E VERDE DAS RESPOSTAS
+function changeCSSBackgroundToShowAnswers() {
+
+    var elementsQuizzAnswersBox = document.querySelectorAll(".game .box-answer");
+    var elementsQuizzAnswers = document.querySelectorAll(".game .box-answer span");
+
+    for(var i=0; i<4; i++) {
+
+        var isAnswerCorrect = elementsQuizzAnswers[i].innerText === currentQuestion.answers[0];
+        if(isAnswerCorrect) {
+            elementsQuizzAnswersBox[i].style.background = "#95f0b8";
+          
+        } else {
+            elementsQuizzAnswersBox[i].style.background = "#f5b9bb";
+        }
+    }
+}
+function removeCorrectAnwer() {
+    var elementsQuizzAnswersBox = document.querySelectorAll(".game .box-answer");
+
+    for(var i=0; i<4; i++) {
+        elementsQuizzAnswersBox[i].style.background = "#fff"
+    }
+
+}
+
+//FUNÇÃO AUXILIAR PARA EMBARALHAR VETOR
 function shufflePositions() {
     return Math.random() - 0.5;
 }
-
-
-// console.log(vetAuxiliar)
