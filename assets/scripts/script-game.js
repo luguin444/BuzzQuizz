@@ -22,9 +22,9 @@ function searchQuizzClickedInMyQuizzes(quizzID) {
 
 function showCorrectAnswer(answerClicked) {
 
-    var userAnswer = answerClicked.querySelector("span").innerText;
-    if (userAnswer === currentQuestion.answers[0]){
-        myScore++;
+    var userAnswer = answerClicked.querySelector("span").innerText;   
+    if (userAnswer === currentQuestion.answers[0]){                 //Usuario acertou ?
+        myScore++;      
     }
 
     changeCSSBackgroundToShowAnswers();
@@ -92,7 +92,7 @@ function RenderLayoutGame() {
 
         var randomPosition = vetAuxiliar[i];
         elementsQuizzAnswers[i].innerText = currentQuestion.answers[randomPosition];
-        elementsQuizzLinks[i].setAttribute("id",currentQuestion.links[randomPosition]);
+        elementsQuizzLinks[i].setAttribute("src",currentQuestion.links[randomPosition]);
     }
 }
 //RENDER:  
@@ -108,10 +108,11 @@ function renderFinalScreen() {
     var elementScoreNumberOfQuestion = document.querySelector(".result .score :last-child");
     elementScoreNumberOfQuestion.innerText = "Score: " + percentageScore + " %";
 
-    var elementTitleLevel = document.querySelector(".result .level-title");
-    
+    var elementTitleLevel = document.querySelector(".result .level-title");  
     elementTitleLevel.innerText = userLevelScore.title;
 
+    var elementDescriptionLevel = document.querySelector(".result .level-description");
+    elementDescriptionLevel.innerText = userLevelScore.description;
 }
 
 //ADICIONA E REMOVE O BACKGROUND VERMELHO E VERDE DAS RESPOSTAS

@@ -21,9 +21,11 @@ function requestQuizzesError () {
 function postNewQuizzServer() {
 
     if (buildObjectNewQuizz()) {
-        var requestPost = axios.post("https://mock-api.bootcamp.respondeai.com.br/api/v1/buzzquizz/quizzesERRADO", currentQUizz , { headers: headerObject });
+        var requestPost = axios.post("https://mock-api.bootcamp.respondeai.com.br/api/v1/buzzquizz/quizzes", currentQUizz , { headers: headerObject });
         requestPost.then(processPostNewQuizz);
         requestPost.catch(PostNewQuizzError);
+    } else {
+        alert("Por favor, as perguntas só podem ter um ponto de interrogação e esse deve estar no final da mesma. Corrija os dados.");
     }
 }
 function processPostNewQuizz () {
@@ -45,6 +47,10 @@ function buildObjectNewQuizz() {
     currentQUizz.data.level = [{}];
 
     var questionSentences = grabQuestionSentences();   //retorna todas as perguntas principais
+
+    if (questionsFormatAreInvalid(questionSentences)) {
+        return false;
+    }
 
     var allAnswersVector = buildFieldAnswer();
     var allLinksVector = buildFieldImagesLinks();
@@ -125,6 +131,19 @@ function firstLetterToUpper(text) {
     var firstLetter = text.charAt(0).toUpperCase();
     text = firstLetter + text.slice(1);  //slice(vai da posição 1 até o final)
     return text;
+}
+function questionsFormatAreInvalid(questionSentences) {
+
+    for(var i = 0; i< questionSentences.length ; i++) {
+
+        var positionOfQuestionMark = questionSentences[i].search('\\?');
+
+        var IsInLastPosition = positionOfQuestionMark === (questionSentences[i].length -1);
+
+        if (positionOfQuestionMark === -1 || !IsInLastPosition)   //não tem ponto de interrogação na string || não está na ultima posição 
+            return true;
+    }
+    return false;   //formato está certo.
 }
 
 // NAVEGAÇÃO: MUDANÇAS DE TELA
