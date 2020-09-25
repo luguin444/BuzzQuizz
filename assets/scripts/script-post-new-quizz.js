@@ -3,7 +3,7 @@
 function postNewQuizzServer() {
 
     if (buildObjectNewQuizz()) {
-        var requestPost = axios.post("https://mock-api.bootcamp.respondeai.com.br/api/v1/buzzquizz/quizzesERRADO", newQuizzObject , { headers: headerObject });
+        var requestPost = axios.post("https://mock-api.bootcamp.respondeai.com.br/api/v1/buzzquizz/quizzes", newQuizzObject , { headers: headerObject });
         requestPost.then(processPostNewQuizz);
         requestPost.catch(PostNewQuizzError);
     } else {
