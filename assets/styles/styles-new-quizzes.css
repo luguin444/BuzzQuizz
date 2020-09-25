@@ -2,7 +2,7 @@
 /*---------------USER NEW QUIZZES SCREEN---------------*/
 
 .new-quizzes {
-    /* display: none; */
+    display: none;
 }
 
 .new-quizzes .building-quizz {
@@ -56,6 +56,12 @@
     display: flex;
 }
 
+.container-answers .answers,
+.container-answers .images-links,
+.container-percentage .low, 
+.container-percentage .high {
+    width: 50%;
+}
 
 .container-answers input,
 .container-percentage .low, 
@@ -68,13 +74,6 @@
     padding-left: 7px;
     font-size: 14px;
     background-color: #f9d8d9;
-}
-
-.container-answers .answers,
-.container-answers .images-links,
-.container-percentage .low, 
-.container-percentage .high {
-    width: 50%;
 }
 
 .container-answers input:first-child {
@@ -124,5 +123,36 @@ textarea {
 }
 
 @media (max-width: 700px) {
-    
+
+    .new-quizzes .building-quizz {
+        width: 100%;
+    }
+
+    .building-quizz .question-container,
+    .building-quizz .level-container {
+        height: auto;
+    }
+
+    .container-answers, 
+    .container-percentage {
+        flex-direction: column;
+    }
+
+    .container-answers .answers,
+    .container-answers .images-links,
+    .container-percentage .low, 
+    .container-percentage .high {
+        width: 100%;
+    }
+
+    .new-quizzes .answers input:last-child{
+        margin-bottom: 2rem;
+    }
+
+    .level-title, 
+    .link-image-level,
+     .new-quizzes textarea {
+        width: 100%;
+    }
+   
 }
