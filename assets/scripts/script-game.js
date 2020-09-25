@@ -71,23 +71,22 @@ function calculateLevel() {
 }
 
 
-
 //RENDER:  DESTRIBUIR O TITULO. TBM AS    PERGUNTAS, RESPOSTAS E LINKS ATUAIS NA TELA DO JOGO
 function RenderLayoutGame() {
 
-    var elementQuizzTitle = document.querySelector(".game h2");
+    var elementQuizzTitle = document.querySelector(".game h2");  //titulo
     elementQuizzTitle.innerText = QuizzClicked.title;
 
-    var elementQuizzCurrentQuestion = document.querySelector(".game .current-question");
-    elementQuizzCurrentQuestion.innerText = currentQuestion["question-title"];
+    var numQuestion =  currentQuestionPosition + 1;
+    var elementQuizzCurrentQuestion = document.querySelector(".game .current-question");  //pergunta atual
+    elementQuizzCurrentQuestion.innerText = numQuestion + ". " + currentQuestion["question-title"];
 
 
-    var vetAuxiliar = [0,1,2,3];
-    vetAuxiliar = vetAuxiliar.sort(shufflePositions);
+    var vetAuxiliar = [0,1,2,3];                                //Distribui as respostas e links de imagem
+    vetAuxiliar = vetAuxiliar.sort(shufflePositions);                       
     
     var elementsQuizzAnswers = document.querySelectorAll(".game .box-answer span");
     var elementsQuizzLinks = document.querySelectorAll(".game .box-answer img");
-
     for (var i =0;i< 4; i++) {
 
         var randomPosition = vetAuxiliar[i];

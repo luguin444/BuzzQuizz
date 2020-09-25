@@ -7,7 +7,7 @@
 
     <link rel="stylesheet" href="assets/styles/reset.css">
     <link rel="stylesheet" href="assets/styles/styles-login-my-quizzes.css">
-    <link rel="stylesheet" href="assets/styles/styles-new-quizzes-game.css">
+    <link rel="stylesheet" href="assets/styles/styles-new-quizzes.css">
     <link rel="stylesheet" href="assets/styles/styles-game.css">
     <link rel="stylesheet" href="assets/styles/final-game.css">
 
@@ -34,20 +34,20 @@
             <h1>BuzzQuizz</h1>
         </header>
 
-        <div class="container-quizzes">
+        <main class="container-quizzes">
             <div class="new-quizz theme" onclick="changeForNewQuizzScreen()">
                 Novo <br> Quizz
                 <ion-icon name="add-circle"></ion-icon>
             </div>
             <ul class="my-quizzes">
             </ul>
-        </div>
+        </main>
       
     </section>
 
     <section class="new-quizzes">
         <header class="theme">
-            <h1 onclick="changeScreenForMyQuizzesAgain()">BuzzQuizz</h1>
+            <h1>BuzzQuizz</h1>
         </header>
         <main class="building-quizz">
             <input type="text" placeholder="Digite o títuilo do seu quizz" class="title-quizz">
@@ -92,44 +92,39 @@
                 </li>
             </ul>
             
-
             <ion-icon name="add-circle" onclick="addNewLevel()"></ion-icon>
 
             <button class="theme" onclick="postNewQuizzServer()">Publicar</button>
-        </main>
-
-        
-        
+        </main>      
     </section>
 
     <section class="game">
         <header class="theme">
-            <h1 onclick="changeScreenForMyQuizzesAgain()">BuzzQuizz</h1>
+            <h1>BuzzQuizz</h1>
         </header>
         <main>
-            <h2>O quão PotterHead você é ?</h2>  
+            <h2></h2>  
             <div class="current-question theme">
-                1. Em que animal Moody transfigurou Malfoy ?
             </div>
             <div class="container-answers">
                 <div class="up-container">
                     <div class="box-answer" onclick="showCorrectAnswer(this)">
-                        <img src="/assets/imagens/catioro.jpeg">
-                        <span>Gato</span>
+                        <img src="">
+                        <span></span>
                     </div>
                     <div class="box-answer" onclick="showCorrectAnswer(this)">
-                        <img src="/assets/imagens/catioro2.jpeg">
-                        <span>Rato</span>
+                        <img src="">
+                        <span></span>
                     </div>
                 </div>
                 <div class="down-container" onclick="showCorrectAnswer(this)">
                     <div class="box-answer">
-                        <img src="/assets/imagens/monkey.jpeg">
-                        <span>Gato</span>
+                        <img src="">
+                        <span></span>
                     </div>
                     <div class="box-answer" onclick="showCorrectAnswer(this)">
-                        <img src="/assets/imagens/monkey2.jpeg">
-                        <span>Rato</span>
+                        <img src="">
+                        <span></span>
                     </div>
                 </div>
             </div>
@@ -139,7 +134,7 @@
 
     <section class="result">
         <header class="theme">
-            <h1 onclick="changeScreenForMyQuizzesAgain()">BuzzQuizz</h1>
+            <h1>BuzzQuizz</h1>
         </header>
         <main>
             <h2>O quão PotterHead você é ?</h2>
@@ -165,7 +160,8 @@
     
     <script src="https://unpkg.com/ionicons@5.1.2/dist/ionicons.js"></script> 
     <script src="/assets/scripts/script-login.js"></script>
-    <script src="/assets/scripts/script-quizz.js"></script>
+    <script src="/assets/scripts/script-my-quizzes.js"></script>
+    <script src="/assets/scripts/script-post-new-quizz.js"></script>
     <script src="/assets/scripts/script-game.js"></script>
 
 </body>

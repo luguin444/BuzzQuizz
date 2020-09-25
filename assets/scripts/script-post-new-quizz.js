@@ -1,27 +1,9 @@
-//CARREGAR MEUS QUIZZES DO SERVIDOR
-function loadUserQuizzes () {
-
-    headerObject = {"User-Token": token};
-    var request = axios.get("https://mock-api.bootcamp.respondeai.com.br/api/v1/buzzquizz/quizzes", { headers: headerObject } );
-    request.then(processMyQUizzes);
-    request.catch(requestQuizzesError);
-}
-function processMyQUizzes (response) {
-    console.log("Rolou de bucar os quizzes no servidor");
-    console.log(response.data);
-    myQuizzes = response.data;
-    renderMyQuizzes();
-}
-function requestQuizzesError () {
-    console.log("Não rolou de bucar os quizzes no servidor");
-}
-
 
 //ENVIAR O NOVO QUIZZ PARA O SERVIDOR
 function postNewQuizzServer() {
 
     if (buildObjectNewQuizz()) {
-        var requestPost = axios.post("https://mock-api.bootcamp.respondeai.com.br/api/v1/buzzquizz/quizzes", currentQUizz , { headers: headerObject });
+        var requestPost = axios.post("https://mock-api.bootcamp.respondeai.com.br/api/v1/buzzquizz/quizzesERRADO", newQuizzObject , { headers: headerObject });
         requestPost.then(processPostNewQuizz);
         requestPost.catch(PostNewQuizzError);
     } else {
@@ -31,24 +13,26 @@ function postNewQuizzServer() {
 function processPostNewQuizz () {
     console.log("Parabens! Você conseguiu postar o Quizz no servidor");
     changeScreenForMyQuizzesAgain();
+    loadUserQuizzes();  //novo Quizz já aparecer na tela Meus Quizzes
 }
 function PostNewQuizzError () {
     console.log("Deu ruim! Você não conseguiu postar o Quizz no servidor");
+    newQuizzObject = {};
 }
 
-//FUNCÇOES PARA CONSTRUIR MEU OBJETO NOS MOLDES DA DOCUMENTAÇÃO DO SERVIDOR
+//FUNÇOES PARA CONSTRUIR MEU OBJETO NOS MOLDES DA DOCUMENTAÇÃO DO SERVIDOR
 function buildObjectNewQuizz() {
 
 
-    currentQUizz.title = titleValidation();
+    newQuizzObject.title = titleValidation();
 
-    currentQUizz.data = {};
-    currentQUizz.data.questions = [{}];
-    currentQUizz.data.level = [{}];
+    newQuizzObject.data = {};
+    newQuizzObject.data.questions = [{}];
+    newQuizzObject.data.level = [{}];
 
     var questionSentences = grabQuestionSentences();   //retorna todas as perguntas principais
-
     if (questionsFormatAreInvalid(questionSentences)) {
+        newQuizzObject = {};
         return false;
     }
 
@@ -63,15 +47,24 @@ function buildObjectNewQuizz() {
 
         answersVectorOneQuestion = allAnswersVector.slice(cont,cont+4);
         linksVectorOneQuestion = allLinksVector.slice(cont,cont+4);
-        currentQUizz.data.questions[i] = {"question-title": questionSentences[i], "answers": answersVectorOneQuestion, "links": linksVectorOneQuestion};
+        newQuizzObject.data.questions[i] = {"question-title": questionSentences[i], "answers": answersVectorOneQuestion, "links": linksVectorOneQuestion};
         cont += 4;
     }
 
-    currentQUizz.data.level = buildLevelVectorObjects();
+    newQuizzObject.data.level = buildLevelVectorObjects();
 
-    console.log("Aqui objeto Quizz", currentQUizz);
+    console.log("Aqui objeto Quizz", newQuizzObject);
 
     return true;    //caso só não tenha uma interrogação, enviar alert
+}
+
+function titleValidation() {
+
+    var titleText = document.querySelector(".title-quizz").value;   //TItulo do Quizz
+    titleText = titleText.trim();            //remover espaços em branco no inicio e final da string
+    titleText = firstLetterToUpper(titleText);
+
+    return titleText;
 }
 function grabQuestionSentences() {
     
@@ -84,12 +77,26 @@ function grabQuestionSentences() {
     }
     return  questionSentences;
 }
+function questionsFormatAreInvalid(questionSentences) {
+
+    for(var i = 0; i< questionSentences.length ; i++) {
+
+        var positionOfQuestionMark = questionSentences[i].search('\\?');
+
+        var IsInLastPosition = positionOfQuestionMark === (questionSentences[i].length -1);
+
+        if (positionOfQuestionMark === -1 || !IsInLastPosition)   //não tem ponto de interrogação na string || não está na ultima posição 
+            return true;
+    }
+    return false;   //formato está certo.
+}
 function buildFieldAnswer() {
 
     var inputAnswer = document.querySelectorAll(".answers input");
     var answersVector = [];
     for(var i=0; i <inputAnswer.length; i++) {
         answersVector[i] = inputAnswer[i].value.trim();
+        answersVector[i] = firstLetterToUpper(answersVector[i]);
     }
     return answersVector;
 }
@@ -118,71 +125,12 @@ function buildLevelVectorObjects() {
     }
     return levelObjects;
 }
-function titleValidation() {
-    var titleText = document.querySelector(".title-quizz").value;   //TItulo do Quizz
-    titleText = titleText.trim();            //remover espaços em branco no inicio e final da string
-    titleText = firstLetterToUpper(titleText);
-
-    return titleText;
-}
 function firstLetterToUpper(text) {
 
     text = text.toLowerCase();
     var firstLetter = text.charAt(0).toUpperCase();
     text = firstLetter + text.slice(1);  //slice(vai da posição 1 até o final)
     return text;
-}
-function questionsFormatAreInvalid(questionSentences) {
-
-    for(var i = 0; i< questionSentences.length ; i++) {
-
-        var positionOfQuestionMark = questionSentences[i].search('\\?');
-
-        var IsInLastPosition = positionOfQuestionMark === (questionSentences[i].length -1);
-
-        if (positionOfQuestionMark === -1 || !IsInLastPosition)   //não tem ponto de interrogação na string || não está na ultima posição 
-            return true;
-    }
-    return false;   //formato está certo.
-}
-
-// NAVEGAÇÃO: MUDANÇAS DE TELA
-function changeForNewQuizzScreen () {
-    var myQUizzesScreen = document.querySelector(".user-quizzes");
-    myQUizzesScreen.style.display = "none";
-
-    var newQuizzesScreen = document.querySelector(".new-quizzes");
-    newQuizzesScreen.style.display = "initial";
-}
-function changeScreenForMyQuizzesAgain() {
-
-    var newQuizzesScreen = document.querySelector(".new-quizzes");
-    newQuizzesScreen.style.display = "none";
-
-    var gameScreen = document.querySelector(".game");
-    gameScreen.style.display = "none";
-
-    var myQUizzesScreen = document.querySelector(".user-quizzes");
-    myQUizzesScreen.style.display = "initial";
-
-
-}
-function LoadLayoutGame() {
-
-    var myQUizzesScreen = document.querySelector(".user-quizzes");
-    myQUizzesScreen.style.display = "none";
-
-    var gameScreen = document.querySelector(".game");
-    gameScreen.style.display = "initial";
-
-}
-function changeScreenEndOfGame() {
-
-    var gameScreen = document.querySelector(".game");
-    gameScreen.style.display = "none";
-
-    var finalScreen = document.querySelector(".result");
-    finalScreen.style.display = "initial";
 }
 
 
@@ -191,11 +139,10 @@ function addNewQuestion() {
 
     numberOfQuestions++;
 
-    var newBlockofQuestion = CreateHTMLBlockQuestion();
+    var newBlockOfQuestion = CreateHTMLBlockQuestion();
 
     var listOfQuestionElement = document.querySelector(".building-quizz ul");
-
-    listOfQuestionElement.appendChild(newBlockofQuestion);
+    listOfQuestionElement.appendChild(newBlockOfQuestion);
 }
 function addNewLevel() {
 
@@ -204,12 +151,11 @@ function addNewLevel() {
     var newBlockofLevel = CreateHTMLBlockLevel();
 
     var listOfLevelElement = document.querySelector(".building-quizz .list-levels");
-
     listOfLevelElement.appendChild(newBlockofLevel);
 
 }
 
-//  RENDERS
+//RENDERS 
 function CreateHTMLBlockQuestion() {
 
     var newQuestion = document.createElement("li");
@@ -223,32 +169,14 @@ function CreateHTMLBlockQuestion() {
     newQuestion.innerHTML += "<div class='container-answers'><div class='answers'><input type='text' placeholder='Digite a resposta certa' class = 'correct-answer'><input type='text' placeholder='Digite a resposta errada1' class = 'wrong-answer'><input type='text' placeholder='Digite a resposta errada2' class = 'wrong-answer'><input type='text' placeholder='Digite a resposta errada3' class = 'wrong-answer'></div><div class='images-links'><input type='text' placeholder='Link para imagem correta' class='correct-link'><input type='text' placeholder='Link para imagem errada1' class='wrong-link'><input type='text' placeholder='Link para imagem errada2' class='wrong-link'><input type='text' placeholder='Link para imagem errada3' class='wrong-link'></div></div>";
   
     return newQuestion;
-
 }
 function CreateHTMLBlockLevel() {
 
     var newLevel = document.createElement("li");
-
     newLevel.classList.add("level-container");
 
         /*Caso queira ver essa estrutura, tem uma identada no arquivo HTML*/
-
-    newLevel.innerHTML = "<h2>Nível " + numberOfLevels + "</h2><div class='container-percentage'><input type='text' placeholder=' % Minima de acerto do nível' class='low'><input type='text' placeholder=' % Máxima de acerto do nível' class='high'></div><input type='text' placeholder='Título do nível' class='level-title'><input type='text' placeholder='LInk da imagem do nível' class='link-image-level'><textarea cols='30' rows='3' placeholder='Descrição do nível'></textarea>"
+     newLevel.innerHTML = "<h2>Nível " + numberOfLevels + "</h2><div class='container-percentage'><input type='text' placeholder=' % Minima de acerto do nível' class='low'><input type='text' placeholder=' % Máxima de acerto do nível' class='high'></div><input type='text' placeholder='Título do nível' class='level-title'><input type='text' placeholder='LInk da imagem do nível' class='link-image-level'><textarea cols='30' rows='3' placeholder='Descrição do nível'></textarea>"
 
     return newLevel;
-
-}
-function renderMyQuizzes() {
-
-    var listQuizzes = document.querySelector(".my-quizzes");
-    for (var i = 0; i < myQuizzes.length; i++) {
-
-        var oneQuizz = document.createElement("li");
-        oneQuizz.classList.add("quizz");
-        oneQuizz.setAttribute("id", myQuizzes[i].id);
-        var id = myQuizzes[i].id; 
-        oneQuizz.setAttribute("onclick", "startQuizzClicked(id)");
-        oneQuizz.innerText = myQuizzes[i].title;
-        listQuizzes.appendChild(oneQuizz);
-    }
 }

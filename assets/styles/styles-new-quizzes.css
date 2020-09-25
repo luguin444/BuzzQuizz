@@ -2,7 +2,7 @@
 /*---------------USER NEW QUIZZES SCREEN---------------*/
 
 .new-quizzes {
-    display: none;
+    /* display: none; */
 }
 
 .new-quizzes .building-quizz {
@@ -123,3 +123,6 @@ textarea {
     cursor: pointer;
 }
 
+@media (max-width: 700px) {
+    
+}
