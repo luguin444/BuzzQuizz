@@ -1,5 +1,7 @@
 DESCRIÇÃO DO PROJETO:
  O projeto consiste de um ADMIN de criação de QUuzzes. Nesse website, o usuário terá uma conta individual e pode criar seus próprios quizzes, formulando perguntas de múltipla escolha com links de imagem associados às respostas a fim de deixar o jogo mais lúdico. Além disso, pode criar níveis em que os jogadores serão posicionados ao final, de acordo com a pontuação feita no jogo. Por último, os quizzes do usuário estarão salvos, podendo jogá-los quando quiser. O número de quizzes, perguntas por quizz e níveis por quizz é ilimitado.
+ 
+LINK DA APLICAÇÃO (GitHub pages): https://luguin444.github.io/BuzzQuizz/
 
 REQUISITOS:
 GERAL:
